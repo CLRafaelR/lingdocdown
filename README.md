@@ -1,18 +1,38 @@
 # lingdocdown
 プログラミングによる，言語学向けの文書の生成を支援する説明書およびテンプレート
 
-# 本ドキュメントが推奨するディレクトリ（フォルダ構成）
+# 本ドキュメントが推奨するディレクトリ（フォルダ）構成
 
-`working_directory_with_Rproj`
+ここに示したディレクトリ構成の内，
+`working_directory_with_Rproj`という親ディレクトリと，
+その直下にある下位ディレクトリ`configuration`は，
+`template4pdf.Rmd`などのテンプレートを直接編集して
+文書生成を行う際に必要となる。
+従って，これ以外の下位ディレクトリの設定は自由であり，下記に示しているのは
+あくまで参考例である。
+また，究極的には，文書生成に必要な設定を熟知している限り，
+`working_directory_with_Rproj`や
+`configuration`の設定の仕方，さらにはこれらフォルダの有無も
+任意である。
+
+`working_directory_with_Rproj`（必須）
 : 基礎となる作業ディレクトリで，R project（拡張子.Rproj）と紐づいている。
   データや編集中のRmdファイル，出力されたPDF・docx・pptx，およびそれらファイルを格納する下位ディレクトリは，全て，この作業ディレクトリの下にある。
   いわば親ディレクトリである。
+  この下位には，どのようなファイル・ディレクトリが，どのように入っていてもよい。
+  但し，`template4pdf.Rmd`などのテンプレートを直接編集して
+  文書生成を行うには，以下の`configuration`ディレクトリを含む必要がある。
 
-
+`configuration`（必須）
+: LaTeXの設定に必要なファイル，グロスを出力するのに必要なluaフィルタ[`pandoc-ling.lua`](https://github.com/CLRafaelR/lingdocdown)を格納している。
+  `lingdocdown`に元から入っている設定ファイル以外のものを入れてもよい。
 
 ```
 working_directory_with_Rproj/
-　├ parent.Rmd
+　├ template4pdf.Rmd
+　├ template4beamer.Rmd
+　├ template4docx.Rmd
+　├ template4pptx.Rmd
 　├ childs/
 　│　├ child1.Rmd
 　│　├ child2.Rmd
@@ -23,11 +43,15 @@ working_directory_with_Rproj/
 　│　├ mp4/
 　│　├ ...
 　│　└ ext/
-　├ data/
-　│　├ csv/
-　│　├ mp4/
-　│　├ ...
-　│　└ ext/
+　├ configuration/
+　│　├ pandoc-ling/
+　│　│　├ pandoc-ling.lua
+　│　│　└ ...
+　│　├ latex
+　│　│　├ fig-tab-box.tex
+　│　│　├ linguistic-sets.tex
+　│　│　└ ...
+　│　└ ...
 　└ figures/
 　　　├ pdf/
 　　　│　├ figure1.pdf
