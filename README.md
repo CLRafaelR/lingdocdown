@@ -1,6 +1,54 @@
-# lingdocdown
-プログラミングによる，言語学向けの文書の生成を支援する説明書およびテンプレート
+---
+title: "lingdocdown"
+subtitile: |
+  | プログラミングによる言語学向けの文書の生成を支援する情報集約型説明書
+  | および（日本の）言語学関連学会の学会誌・予稿を作成するためのテンプレート
+author: "小川雅貴（Ogawa, Masataka）"
+---
 
+# lingdocdown
+
+プログラミングによる言語学向けの文書の生成を支援する情報集約型説明書
+および（日本の）言語学関連学会の学会誌・予稿を作成するためのテンプレート
+
+# 内容
+
+本レポジトリでは，**統計プログラミング言語‌R‌から言語学の論文・レポートを生成する方法**を，Rのインストールの段階も含めて紹介する。
+
+これまで言語学の論文・レポートは，Microsoft Word や LaTeX から作成されてきた。
+しかし，Microsoft Word では，参考文献および図表・例文番号の自動付与と整形に加え，
+グロス付与・句構造木の描画のような言語学特有の記述も難しかった。
+また，LaTeX では，参考文献等の自動処理や言語学特有の記述は可能だったが，
+コマンドと本文（地の文）が混然一体となり見難く，かつプログラミングの慣熟までに高い敷居があった。
+
+そこで本レポジトリでは，より平易な文書生成プログラミングである‌RMarkdown‌ を紹介する。
+これにより，参考文献および図表・例文番号の処理と言語学特有の記述の体系的自動化が可能になり，
+かつコマンドと地の文をより容易に識別しながら執筆できる。
+しかも，統計プログラミング結果も本文に直に・即時更新で取り込むこともできるようになる。
+本レポジトリは，そうした技術を，言語学分野への応用を念頭に集約したものである。
+
+なお，現在の資料は，現在は RMarkdown から LaTeX を経由して PDF を出力する（但し LaTeX は極力使わない）ことに特化している。
+そのため近い将来，
+RMarkdown からdocx/pptx ファイルを出力したり，
+beamer（スライド・ポスターを出力する LaTeX パッケージ）・revealjs（HTMLベースのスライド）を出力する方法は別途まとめたい。
+
+# バージョン
+
+試行版 `Ain't no mountain high enough`
+
+## いま出来ること
+
+1. [pandoc-ling](https://github.com/cysouw/pandoc-ling)を使用した，markdown形式でグロスを作成すること
+2. RMarkdownからLaTeXを経由してPDF（論文・予稿）を出力すること
+    - 現在は，日本言語学会の予稿に対応
+
+## 将来的に出来るようにすること
+
+[こちら](https://github.com/CLRafaelR/lingdocdown/discussions/10)のURLにてアナウンスする
+
+https://github.com/CLRafaelR/lingdocdown/discussions/10
+
+<!--
 # 本ドキュメントが推奨するディレクトリ（フォルダ）構成
 
 ここに示したディレクトリ構成の内，
@@ -47,7 +95,7 @@ working_directory_with_Rproj/
 　│　├ pandoc-ling/
 　│　│　├ pandoc-ling.lua
 　│　│　└ ...
-　│　├ latex
+　│　├ LaTeX
 　│　│　├ fig-tab-box.tex
 　│　│　├ linguistic-sets.tex
 　│　│　└ ...
@@ -64,8 +112,12 @@ working_directory_with_Rproj/
 　　　　　├ ...
 　　　　　└ figureN.png
  ```
+-->
 
-# LICENSE
+
+# 許諾および免責事項（LICENSE）
+
+本レポジトリの内容に関する取扱いは，クリエイティブ・コモンズの表示-非営利-継承4.0国際に従う。
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
   <a property="dct:title" rel="cc:attributionURL" href="https://github.com/CLRafaelR/lingdocdown">
@@ -85,3 +137,7 @@ working_directory_with_Rproj/
     <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
   </a>
 </p>
+
+# 質問がある場合には
+
+lingdocdownに関するご質問は，[`lingdocdown`のQ&Aページ](https://github.com/CLRafaelR/lingdocdown/discussions/categories/q-a)からお受けいたします（GitHubアカウントが必要です。メールアドレスと，ご自身で設定するパスワードの2つで登録できます）。まずは，Q&Aページ内をご覧いただき，ご自身の質問に対応したものがあるかご確認をお願いします。その上で，もしご自身の質問が解決されない場合には，当該Q&Aページの右側にある[New discussion](https://github.com/CLRafaelR/lingdocdown/discussions/new)を押していただき，そこからご質問をご投稿いただきたくお願いいたします。
