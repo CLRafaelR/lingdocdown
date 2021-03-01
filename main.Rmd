@@ -1,0 +1,658 @@
+---
+## このRmdを編集して別文書を作成する場合，
+## 文書タイトル・筆者・日付等のメタ情報の編集は
+## このYAMLセクションで行ってください
+title: |
+  | タイトル
+subtitle: サブタイトル
+
+#単著の場合
+author: "姓 名"
+
+# 共著の場合
+# author:
+#   - 著者1
+#   - 著者2 # 2人の場合は，「- 著者3」を消す
+#   - 著者3 # 以下，より多人数に出来る
+date: "2021/1/31 (最終更新: `r format(Sys.time(), '%Y/%b/%e')`)"
+abstract: |
+  ここに要旨
+
+output: 
+  bookdown::pdf_document2:
+    latex_engine: xelatex
+    keep_tex: TRUE
+    toc: TRUE
+    highlight: "espresso"
+    includes:
+      in_header:
+        - configuration/latex/fig-tab-box.tex
+        - configuration/latex/character-config.tex
+        - configuration/latex/linguistic-sets.tex
+        - configuration/latex/link-highlight.tex
+        #- configuration/latex/biblatex-japanese-config.tex
+    pandoc_args:
+      - --lua-filter=configuration/pandoc-ling/pandoc-ling.lua
+    #citation_package: natbib
+    citation_package: biblatex
+
+###------------------------------------------
+###
+### 参考文献に関する設定項目
+###
+###------------------------------------------
+
+# 文献情報が記されたファイルの指定
+bibliography: 
+  - bibliography/cjk.bib
+  - bibliography/non-cjk.bib
+
+# natbibのオプション
+# biblatexoptions:
+  
+# biblatexのオプション
+biblatexoptions:
+  - sortcites = true
+  - sorting = nyt
+  - backend = biber
+  - maxcitenames = 2
+
+# 参考文献のスタイルの設定（LaTeX経由でPDFを生成する場合）
+#biblio-style: doc-creation/bibs/jecon-bst/jecon
+#biblio-style:
+biblio-style: apa6
+
+# 参考文献の章・節の名前を変更する
+# bxjsarticleの初期設定では「参考文献」
+biblio-title: "「参考文献」欄の例"
+
+###------------------------------------------
+###
+### pandoc-lingの設定
+###
+###------------------------------------------
+
+# pandoc-lingで変換した例文をLaTeXでどのように出力するかの指定
+latexPackage: gb4e
+
+# pandoc-lingで変換した例文の番号をどのように出力するかの指定
+addChapterNumber: FALSE
+restartAtChapter: FALSE
+
+###------------------------------------------
+###
+### LaTeXでPDF論文・レポートを出力する際の設定項目
+### 「必須」と特記がない場合は，原則任意設定
+###
+###------------------------------------------
+
+# 日本語で組版するなら
+documentclass: bxjsarticle
+classoption: 
+   ##--------------------
+   ## pandocオプションは必須
+   ##--------------------
+  - pandoc 
+   ##--------------------
+   ## 以降は任意 
+   ##--------------------
+   # XeLaTeXをLaTeXエンジンにしている場合のフォント設定
+   # 詳しくは，下記「zxjafontパッケージ」の第2.1節内にある「■多ウェイト用プリセッ 」を参照
+   # http://mirrors.ctan.org/language/japanese/zxjafont/zxjafont.pdf#page=2
+  - jafont = haranoaji       # bxjsarticleのデフォルトのフォント
+   #- jafont = yu-win10      # Windows 10ユーザが游書体を使う場合
+   #- jafont = hiragino-pron # ヒラギノ，Macユーザを中心にヒラギノを使いたい方はこちらを使う
+   # 用紙サイズの指定
+   # A4以外のものを指定したい場合には，
+   # 下記「zxjafontパッケージ」の第2節内にある「■用紙サイズ」を参照
+   # http://mirrors.ctan.org/language/japanese/BX/bxjscls/bxjscls.pdf#page=11
+  - a4paper
+   # 段落冒頭に括弧類が来た時の空きの補正方法
+  - everyparhook = compat
+   # 長さの単位として，pTeXの和文用の単位を使いたい場合
+  - |
+    ```{=latex}
+    japaram = {units = true}
+    ```
+
+# 欧文組版の中に日本語を混ぜるなら
+# documentclass: bxjsarticle とそのclassoptionをコメントアウトし，
+# その上で下記のコメントアウトを外す
+#documentclass: article
+#lang: jp #将来jpはjaに修正される 詳細は https://github.com/jgm/pandoc/pull/7050
+
+###--------------------------------------------------------
+###                                       
+### styleファイルなどがない場合など自分で指定したい項目がある場合には，
+### 以下を指定する
+###                                       
+### LaTeX styleファイル（拡張子.sty）などの
+### 学会で配布されるdocumentclassおよびそのclassoptionがある場合には
+### これより先の「LaTeXでPDF論文・レポートを出力する際の設定項目」は
+### 設定しないことを勧める
+### （学会のdocumentclassやclassoptionに指定された設定にならない恐れがある）
+### （学会のdocumentclassやclassoptionを記したファイル本体を上書きするわけではない）
+###                                       
+###--------------------------------------------------------
+
+# PDFの余白の設定
+# オプションの詳細は，下記のgeometryパッケージ取り扱い説明書を参照
+# http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf#page=3
+# footskipを除き，日本言語学会の予稿集の余白に準拠
+# なお，2020年9月現在，日本言語学会学会誌『言語研究』の場合，
+# footskipを除く下記全てを，25truemmに設定すればよい
+geometry: 
+  - left     = 20truemm
+  - right    = 20truemm
+  - top      = 20truemm
+  - bottom   = 30truemm
+  #下部余白の上を基準点に，そこからどの位置にページ番号を載せるか
+  - footskip = 15truemm 
+
+# 段落間の空行を消し，段落冒頭を字下げする場合
+indent: TRUE
+
+# 論文本文の欧文フォントの設定
+# ローマン体
+mainfont: TeX Gyre Termes
+mainfontoptions:
+- Scale = 1
+
+# 論文章節タイトルの欧文フォントの設定
+# サンセリフ体
+sansfont: TeX Gyre Heros
+sansfontoptions:
+- Scale = 1
+
+# コードブロック用の欧文フォントの設定
+# タイプライタ体
+monofont: zcoN
+monofontoptions:
+- Scale = MatchLowercase
+---
+
+<!-- 
+このRmdを編集して別文書を作成する場合，
+knitrの設定を変えるには下記を変更してください
+-->
+
+```{r setup, include=FALSE}
+library(knitr)
+
+# R project（拡張子.Rproj）が設定されているフォルダをパスの起点とする
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+knitr::opts_chunk$set(
+  # チャンクに書かれた内容を実行するか
+  # 本資料用にFALSE
+  eval       = FALSE,
+
+  # チャンクに書かれた内容を論文に含めるか否か
+  include    = TRUE,
+  
+  # Rの関数の実行結果を保存しておくか否か
+  cache      = FALSE,
+  
+  # チャンクに書かれた内容を表示するか否か
+  # 本資料用にTRUE
+  echo       = TRUE,
+  
+  # Rの関数からのメッセージを表示するかどうか
+  message    = FALSE,
+  
+  # Rからのエラーメッセージを表示するかどうか
+  warning    = FALSE,
+  
+  # 図の出力先の指定
+  fig.path   = "figures/", 
+  
+  # 特にRで図を作成したときの，その図の高さ（インチ）
+  fig.height = 6,
+  
+  # 特にRで図を作成したときの，その図の幅（インチ）
+  fig.width  = 8,
+  
+  # 特にRで図を作成したときの，その図の水平方向での位置
+  fig.align  = "center",
+  
+  # 特にRで図を作成したときの，その図の出力サイズ
+  out.width  = "60%",
+  
+  # 図の本文中での位置
+  fig.pos='H',
+  
+  # 図でのフォントを指定する
+  # dev.args = list(family = "Roboto Medium"),
+  
+  # 図を出力するデバイスの指定
+  dev        = "cairo_pdf", # Windowsの場合特にこれを指定すると安全
+  
+  # Rmd実行中に生成した図をどの拡張子で保存するか
+  fig.ext = if (knitr:::is_latex_output()) 'pdf' else 'png'
+  )
+```
+
+<!-- 
+このRmdを編集して別文書を作成する場合，
+LaTeXの設定を変えるには，下記を変更してください
+
+linguistic-sets.texは，
+言語学に関連するLaTeXパッケージを制御しています
+-->
+
+```{r linguistic-sets, include=FALSE}
+writeLines(
+  con = file("configuration/latex/linguistic-sets.tex"), 
+  useBytes = TRUE, 
+  enc2utf8(
+    r"(%---------------------------------------------------
+%
+% 言語学関係の設定
+%
+%---------------------------------------------------
+
+\usepackage{linguex}
+
+\makeatletter % {gb4e}packageの妨害コマンドを抑止する
+\def\new@fontshape{} % {gb4e}packageの妨害コマンドを抑止する
+\makeatother % {gb4e}packageの妨害コマンドを抑止する
+\let\mathexp=\exp % TeXにおける本来の \exp コマンドの定義（数学の指数expの表示）を保存
+\usepackage{gb4e}\noautomath
+\let\gbexp=\exp % gb4eでの \exp コマンドの定義（例文表示）を保存
+\DeclareRobustCommand{\exp}{\ifmmode\mathexp\else\expandafter\gbexp\fi}
+
+\usepackage{tipa}
+%IPAのフォントをTimesに変える
+%https://tex.stackexchange.com/questions/193368/set-tipa-font-to-times-for-phonetic-characters
+%\DeclareFontSubstitution{T3}{ptm}{m}{n}
+
+%https://tex.stackexchange.com/a/345436/169454
+\DeclareTextFontCommand{\textipa}{%
+  \fontfamily{ptm}\tipaencoding
+}
+\renewenvironment{IPA}{\fontfamily{ptm}\tipaencoding}{}
+
+
+%% 木構造
+
+\usepackage[linguistics]{forest}
+
+%% HPSGでのAVM（attribute-value matrices）
+
+\usepackage{langsci-avm}
+)"
+)
+)
+```
+
+<!-- 
+このRmdを編集して別文書を作成する場合，
+LaTeXの設定を変えるには，下記を変更してください
+
+fig-tab-box.texは，
+図表と囲み記事（tcolorbox）に関するLaTeXパッケージを
+制御しています
+-->
+
+```{r fig-tab-box, include=FALSE}
+writeLines(
+  con = file("configuration/latex/fig-tab-box.tex"), 
+  useBytes = TRUE, 
+  enc2utf8(
+    r"(%---------------------------------------------------
+%
+% 図表に関する指定
+%
+%---------------------------------------------------
+
+%% 表が版面の幅に合うように自動で調整 %%
+
+\usepackage{adjustbox} 
+
+%% 欧文誌でよく見られる表にする %%
+
+\usepackage{booktabs}
+
+%% 表のセル内改行を可能にする %%
+
+\usepackage{tabularx}
+
+%% 版面における図表の位置を自動で調整する %%
+
+\usepackage{float} % Don't delete after 2020.06.08 update to rmarkdown 2.2
+
+%%%% 図表の出力位置を指定した場合，必ずその位置に指定する %%%%
+
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+%% 図表のキャプション設定 %%
+
+%\usepackage[font=small,labelfont={bf,sf}]{caption} %論文用
+%\usepackage[font=tiny,labelfont={bf,sf}]{caption} %beamer用
+
+%beamerでのcaptionフォントサイズ変更は\setbeamerfont{caption}{size=\tiny}で行う
+
+%\captionsetup[table]{skip=-5truemm}
+%\captionsetup[table]{belowskip = -7truemm}
+%\captionsetup{skip = 2pt, aboveskip = 0pt, belowskip = 0pt}
+
+
+%% 図を並列した場合に出来る「1a」等のキャプションの設定 %%
+
+%\usepackage[font=footnotesize]{subfig} %論文用
+\usepackage[font=tiny]{subfig} %beamer用
+
+%% 英文での図表キャプションを略記する場合 %%
+
+%%%% FigureからFig.へ %%%%
+%\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+
+%%%% TableからTab.へ %%%%
+%\addto\captionsenglish{\renewcommand{\tablename}{Tab.}}
+
+%% 図表本体と図表キャプションの間隔を調整する場合 %%
+
+%%%% 図本体と図キャプションの間隔 %%%%
+
+\addtolength{\abovecaptionskip}{-1truemm}
+
+%%%% 表本体と表キャプションの間隔 %%%%
+
+\captionsetup*[table]{skip = 0pt, belowskip = 0pt}
+% \addtolength{\belowcaptionskip}{-1truemm}
+
+%---------------------------------------------------
+%
+% 囲み記事を作る際の指定
+%
+%---------------------------------------------------
+
+%% tcolorboxを使う %%
+
+\usepackage{tcolorbox}
+
+%%%% 囲み記事が複数ページをまたげるようにする %%%%
+
+\tcbuselibrary{breakable}
+
+%% ascmacパッケージを使う %%
+
+\usepackage{ascmac}
+
+%---------------------------------------------------
+%
+% ウィドウ・オーファンの防止
+%
+%---------------------------------------------------
+
+\usepackage[all]{nowidow}
+)"
+)
+)
+```
+
+<!-- 
+このRmdを編集して別文書を作成する場合，
+LaTeXの設定を変えるには，下記を変更してください
+
+character-config.texは，
+本文中のリンクの色や，
+コードブロックのシンタックスハイライトに関するLaTeXパッケージを
+制御しています
+-->
+
+```{r character-config, include=FALSE, eval=TRUE}
+writeLines(
+  con = file("configuration/latex/character-config.tex"),
+  useBytes = TRUE, 
+  enc2utf8(
+    r"(%---------------------------------------------------
+%
+% フォント指定
+% 
+% なお，アルファベットの設定はYAMLセクションでも可能
+%
+% 本テンプレートで紹介したフォントをインストールしていない場合は
+% 必ず (1) 下記をコメントアウトするか，
+% (2) YAMLセクションのincludes: in_header:以下の
+% character-config.texをコメントアウトし
+% 下記内容を参照しないようにすること
+% 
+%---------------------------------------------------
+
+\usepackage{fontspec}
+
+%% アルファベットの設定 %%
+
+%%%% ローマン体（論文本文用） %%%%
+
+%\setmainfont[Scale = 1]{TeXGyreTermes}
+
+%%%% サンセリフ体（論文章節タイトル用） %%%%
+
+%\setsansfont[Scale = 1]{TeXGyreHeros}
+
+%%%% タイプライタ体（コードブロック用） %%%%
+
+%\setmonofont[Scale = MatchLowercase]{zcoN}
+
+\usepackage{zxjatype}
+
+%%  非アルファベットの設定  %%
+%%                    %%
+%% 例：日本語で使うフォント %%
+
+%% このテンプレートは，LaTeXが認識できる日本語フォントのインストールについて
+%% 言及していないので，下記はコメントアウトしてある
+
+%%%% 明朝体（論文本文用） %%%%
+
+% \setjamainfont[BoldFont = SourceHanSansJP-Bold.otf]{SourceHanSerifJP-Light.otf}
+
+%%%% サンセリフ体（論文章節タイトル用） %%%%
+
+% \setjasansfont[Scale=1, BoldFont = SourceHanSansJP-Bold.otf]{SourceHanSansJP-Normal.otf}
+
+%%%% タイプライタ体（コードブロック用） %%%%
+
+% \setjamonofont{SourceHanSansJP-Normal.otf}
+
+%---------------------------------------------------
+%
+% 行頭インデント・行間の設定
+%
+%---------------------------------------------------
+
+%\usepackage{indentfirst}
+%\setlength{\parindent}{12pt} %日本語用
+%%\setlength{\parindent}{1.27cm} %APA 6版 対応
+%\parskip=0pt
+%
+%\renewcommand{\baselinestretch}{1.2}
+%
+%\usepackage{ragged2e}
+%
+%\usepackage{calc}
+)"
+)
+)
+```
+
+<!-- 
+このRmdを編集して別文書を作成する場合，
+LaTeXの設定を変えるには，下記を変更してください
+
+link-highlight.texは，
+本文中のリンクの色や，
+コードブロックのシンタックスハイライトに関するLaTeXパッケージを
+制御しています
+-->
+
+```{r link-highlight, include=FALSE}
+writeLines(
+  con = file("configuration/latex/link-highlight.tex"),
+  useBytes = TRUE, 
+  enc2utf8(
+    r"(%---------------------------------------------------
+%
+% 本文内でのリンクに色を付ける際の設定
+%
+%---------------------------------------------------
+
+\hypersetup{
+  colorlinks = true,
+  citecolor = [RGB]{24,127,196},
+  linkcolor = [RGB]{24, 127,196},
+  urlcolor = [RGB]{24,127,196} %orange
+}
+
+%---------------------------------------------------
+%
+% コードブロックのシンタックスハイライトに関する設定
+%
+%---------------------------------------------------
+
+\usepackage{fvextra}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{showspaces=false,showtabs=false,breaklines,commandchars=\\\{\}}
+)"
+)
+)
+```
+
+```{r biblatex-japanese-config, include=FALSE}
+writeLines(
+  con = file("configuration/latex/biblatex-japanese-config.tex"),
+  useBytes = TRUE, 
+  enc2utf8(
+    r"(%---------------------------------------------------
+%
+% biblatex-japaneseを使う際の設定
+%
+%---------------------------------------------------
+
+\usepackage[sortcites = true, 
+sorting = nyt,
+backend = biber,
+style = authoryear,
+maxcitenames = 2]{biblatex-japanese}
+)"
+)
+)
+```
+
+<!--
+本資料作成用の追加設定
+
+以下では，入力・出力の囲み記事を作るために，
+tcolorboxを使用した
+-->
+
+```{=latex}
+\newcommand*{\img}[1]{%
+    \raisebox{-.3\baselineskip}{%
+        \includegraphics[
+        height=\baselineskip,
+        width=\baselineskip,
+        keepaspectratio,
+        ]{#1}%
+    }%
+}
+```
+
+```{cat, engine.opts = list(file = "configuration/box.lua"), eval=FALSE, include = FALSE}
+function Div (elem)
+  if FORMAT:match 'docx' then
+    if elem.classes[1] then
+      elem.attributes['custom-style'] = elem.classes[1]
+      return elem
+    else
+      return elem
+    end
+  elseif FORMAT:match 'latex' then
+    if elem.classes[1] then
+      local box = "\\begin{tcolorbox}[colframe=" .. elem.classes[1] .. "-frame, colback=" .. elem.classes[1] .. "-bg]"
+      return{
+        pandoc.RawBlock('latex', box),
+        elem,
+        pandoc.RawBlock('latex', '\\end{tcolorbox}')
+      }
+    else
+      return elem
+    end
+  end
+end
+```
+
+```{=latex}
+\newtcolorbox{inputbox}{
+  breakable, 
+  before skip=20pt plus 2pt minus 2pt,
+  after skip=20pt plus 2pt minus 2pt,
+  boxrule=0.4pt, 
+  colframe=black!60, 
+  colback=white!95, 
+  fonttitle=\gtfamily\bfseries,
+  title=入力
+  }
+```  
+
+```{=latex}
+\newtcolorbox{outputbox}{
+  breakable, 
+  before skip=20pt plus 2pt minus 2pt,
+  after skip=20pt plus 2pt minus 2pt,
+  boxrule=0.4pt, 
+  colframe=black!60, 
+  colback=white!95, 
+  fonttitle=\gtfamily\bfseries,
+  title=出力結果
+  }
+```  
+
+```{=latex}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{showspaces=false,showtabs=false,breaklines,commandchars=\\\{\}}
+```
+
+<!-- このRmdをテンプレートとして使う場合，この行以下を編集してください -->
+
+<!--
+以下，
+[科学論文の基本構成](https://jrecin.jst.go.jp/seek/html/e-learning/900/lesson/lesson1-4.html)に従って，
+子ファイルを配置
+
+子ファイルの数・種類・名称は，適宜変更する
+-->
+
+
+
+```{=latex}
+\thispagestyle{empty}
+\pagestyle{empty}
+```
+
+<!-- 序論 -->
+
+```{r introduction, child='drafts/01-introduction.Rmd', include=TRUE, eval=TRUE}
+```
+
+<!-- 試料と方法 -->
+
+```{r materials-methods, child='drafts/02-materials-methods.Rmd', include=TRUE, eval=TRUE}
+```
+
+<!-- 結果と分析 -->
+
+```{r results-analyses, child='drafts/03-results-analyses.Rmd', include=TRUE, eval=TRUE}
+```
+
+<!-- 考察 -->
+
+```{r discussion, child='drafts/04-discussion.Rmd', include=TRUE, eval=TRUE}
+```
+
+<!-- 結論 -->
+
+```{r conclusion, child='drafts/05-conclusion.Rmd', include=TRUE, eval=TRUE}
+```

@@ -1,0 +1,81 @@
+%---------------------------------------------------
+%
+% 図表に関する指定
+%
+%---------------------------------------------------
+
+%% 表が版面の幅に合うように自動で調整 %%
+
+\usepackage{adjustbox} 
+
+%% 欧文誌でよく見られる表にする %%
+
+\usepackage{booktabs}
+
+%% 表のセル内改行を可能にする %%
+
+\usepackage{tabularx}
+
+%% 版面における図表の位置を自動で調整する %%
+
+\usepackage{float} % Don't delete after 2020.06.08 update to rmarkdown 2.2
+
+%%%% 図表の出力位置を指定した場合，必ずその位置に指定する %%%%
+
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+
+%% 図表のキャプション設定 %%
+
+%\usepackage[font=small,labelfont={bf,sf}]{caption} %論文用
+%\usepackage[font=tiny,labelfont={bf,sf}]{caption} %beamer用
+
+%beamerでのcaptionフォントサイズ変更は\setbeamerfont{caption}{size=\tiny}で行う
+
+%\captionsetup[table]{skip=-5truemm}
+%\captionsetup[table]{belowskip = -7truemm}
+%\captionsetup{skip = 2pt, aboveskip = 0pt, belowskip = 0pt}
+
+
+%% 図を並列した場合に出来る「1a」等のキャプションの設定 %%
+
+%\usepackage[font=footnotesize]{subfig} %論文用
+\usepackage[font=tiny]{subfig} %beamer用
+
+%% 英文での図表キャプションを略記する場合 %%
+
+%%%% FigureからFig.へ %%%%
+%\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+
+%%%% TableからTab.へ %%%%
+%\addto\captionsenglish{\renewcommand{\tablename}{Tab.}}
+
+%% 図表本体と図表キャプションの間隔を調整する場合 %%
+
+%%%% 図本体と図キャプションの間隔 %%%%
+
+\addtolength{\abovecaptionskip}{-1truemm}
+
+%%%% 表本体と表キャプションの間隔 %%%%
+
+\captionsetup*[table]{skip = 0pt, belowskip = 0pt}
+% \addtolength{\belowcaptionskip}{-1truemm}
+
+%---------------------------------------------------
+%
+% 囲み記事を作る際の指定
+%
+%---------------------------------------------------
+
+%% tcolorboxを使う %%
+
+\usepackage{tcolorbox}
+
+%%%% 囲み記事が複数ページをまたげるようにする %%%%
+
+\tcbuselibrary{breakable}
+
+%% ascmacパッケージを使う %%
+
+\usepackage{ascmac}
+

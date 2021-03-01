@@ -1,0 +1,68 @@
+%---------------------------------------------------
+%
+% フォント指定
+% 
+% なお，アルファベットの設定はYAMLセクションでも可能
+%
+% 本テンプレートで紹介したフォントをインストールしていない場合は
+% 必ず (1) 下記をコメントアウトするか，
+% (2) YAMLセクションのincludes: in_header:以下の
+% character-config.texをコメントアウトし
+% 下記内容を参照しないようにすること
+% 
+%---------------------------------------------------
+
+\usepackage{fontspec}
+
+%% アルファベットの設定 %%
+
+%%%% ローマン体（論文本文用） %%%%
+
+%\setmainfont[Scale = 1]{TeXGyreTermes}
+
+%%%% サンセリフ体（論文章節タイトル用） %%%%
+
+%\setsansfont[Scale = 1]{TeXGyreHeros}
+
+%%%% タイプライタ体（コードブロック用） %%%%
+
+%\setmonofont[Scale = MatchLowercase]{zcoN}
+
+\usepackage{zxjatype}
+
+%%  非アルファベットの設定  %%
+%%                    %%
+%% 例：日本語で使うフォント %%
+
+%% このテンプレートは，LaTeXが認識できる日本語フォントのインストールについて
+%% 言及していないので，下記はコメントアウトしてある
+
+%%%% 明朝体（論文本文用） %%%%
+
+% \setjamainfont[BoldFont = SourceHanSansJP-Bold.otf]{SourceHanSerifJP-Light.otf}
+
+%%%% サンセリフ体（論文章節タイトル用） %%%%
+
+% \setjasansfont[Scale=1, BoldFont = SourceHanSansJP-Bold.otf]{SourceHanSansJP-Normal.otf}
+
+%%%% タイプライタ体（コードブロック用） %%%%
+
+% \setjamonofont{SourceHanSansJP-Normal.otf}
+
+%---------------------------------------------------
+%
+% 行頭インデント・行間の設定
+%
+%---------------------------------------------------
+
+%\usepackage{indentfirst}
+%\setlength{\parindent}{12pt} %日本語用
+%%\setlength{\parindent}{1.27cm} %APA 6版 対応
+%\parskip=0pt
+%
+%\renewcommand{\baselinestretch}{1.2}
+%
+%\usepackage{ragged2e}
+%
+%\usepackage{calc}
+
