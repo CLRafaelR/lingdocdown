@@ -1,0 +1,36 @@
+%---------------------------------------------------
+%
+% 言語学関係の設定
+%
+%---------------------------------------------------
+
+\usepackage{linguex}
+
+\makeatletter % {gb4e}packageの妨害コマンドを抑止する
+\def\new@fontshape{} % {gb4e}packageの妨害コマンドを抑止する
+\makeatother % {gb4e}packageの妨害コマンドを抑止する
+\let\mathexp=\exp % TeXにおける本来の \exp コマンドの定義（数学の指数expの表示）を保存
+\usepackage{gb4e}\noautomath
+\let\gbexp=\exp % gb4eでの \exp コマンドの定義（例文表示）を保存
+\DeclareRobustCommand{\exp}{\ifmmode\mathexp\else\expandafter\gbexp\fi}
+
+\usepackage{tipa}
+%IPAのフォントをTimesに変える
+%https://tex.stackexchange.com/questions/193368/set-tipa-font-to-times-for-phonetic-characters
+%\DeclareFontSubstitution{T3}{ptm}{m}{n}
+
+%https://tex.stackexchange.com/a/345436/169454
+\DeclareTextFontCommand{\textipa}{%
+  \fontfamily{ptm}\tipaencoding
+}
+\renewenvironment{IPA}{\fontfamily{ptm}\tipaencoding}{}
+
+
+%% 木構造
+
+\usepackage[linguistics]{forest}
+
+%% HPSGでのAVM（attribute-value matrices）
+
+\usepackage{langsci-avm}
+
