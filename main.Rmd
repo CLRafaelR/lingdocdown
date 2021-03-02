@@ -33,8 +33,8 @@ output:
         #- configuration/latex/biblatex-japanese-config.tex
     pandoc_args:
       - --lua-filter=configuration/pandoc-ling/pandoc-ling.lua
-    #citation_package: natbib
-    citation_package: biblatex
+    citation_package: natbib
+    #citation_package: biblatex
 
 ###------------------------------------------
 ###
@@ -44,27 +44,27 @@ output:
 
 # 文献情報が記されたファイルの指定
 bibliography: 
-  - bibliography/cjk.bib
-  - bibliography/non-cjk.bib
+  - citation/bibliography/cjk-comma-sep.bib
+  - citation/bibliography/non-cjk.bib
 
 # natbibのオプション
 # biblatexoptions:
   
 # biblatexのオプション
-biblatexoptions:
-  - sortcites = true
-  - sorting = nyt
-  - backend = biber
-  - maxcitenames = 2
+# biblatexoptions:
+#   - sortcites = true
+#   - sorting = nyt
+#   - backend = biber
+#   - maxcitenames = 2
+#   - style = authoryear-comp
 
 # 参考文献のスタイルの設定（LaTeX経由でPDFを生成する場合）
-#biblio-style: doc-creation/bibs/jecon-bst/jecon
-#biblio-style:
-biblio-style: apa6
+# biblio-style: apa6
+biblio-style: citation/styles/lsj
 
 # 参考文献の章・節の名前を変更する
 # bxjsarticleの初期設定では「参考文献」
-biblio-title: "「参考文献」欄の例"
+# biblio-title: "参照文献"
 
 ###------------------------------------------
 ###
@@ -229,6 +229,11 @@ knitr::opts_chunk$set(
   
   # Rmd実行中に生成した図をどの拡張子で保存するか
   fig.ext = if (knitr:::is_latex_output()) 'pdf' else 'png'
+  )
+
+options(
+  tinytex.latexmk.emulation = FALSE,
+  tinytex.latexmk.min_times = 4
   )
 ```
 
@@ -542,79 +547,6 @@ maxcitenames = 2]{biblatex-japanese}
 )
 ```
 
-<!--
-本資料作成用の追加設定
-
-以下では，入力・出力の囲み記事を作るために，
-tcolorboxを使用した
--->
-
-```{=latex}
-\newcommand*{\img}[1]{%
-    \raisebox{-.3\baselineskip}{%
-        \includegraphics[
-        height=\baselineskip,
-        width=\baselineskip,
-        keepaspectratio,
-        ]{#1}%
-    }%
-}
-```
-
-```{cat, engine.opts = list(file = "configuration/box.lua"), eval=FALSE, include = FALSE}
-function Div (elem)
-  if FORMAT:match 'docx' then
-    if elem.classes[1] then
-      elem.attributes['custom-style'] = elem.classes[1]
-      return elem
-    else
-      return elem
-    end
-  elseif FORMAT:match 'latex' then
-    if elem.classes[1] then
-      local box = "\\begin{tcolorbox}[colframe=" .. elem.classes[1] .. "-frame, colback=" .. elem.classes[1] .. "-bg]"
-      return{
-        pandoc.RawBlock('latex', box),
-        elem,
-        pandoc.RawBlock('latex', '\\end{tcolorbox}')
-      }
-    else
-      return elem
-    end
-  end
-end
-```
-
-```{=latex}
-\newtcolorbox{inputbox}{
-  breakable, 
-  before skip=20pt plus 2pt minus 2pt,
-  after skip=20pt plus 2pt minus 2pt,
-  boxrule=0.4pt, 
-  colframe=black!60, 
-  colback=white!95, 
-  fonttitle=\gtfamily\bfseries,
-  title=入力
-  }
-```  
-
-```{=latex}
-\newtcolorbox{outputbox}{
-  breakable, 
-  before skip=20pt plus 2pt minus 2pt,
-  after skip=20pt plus 2pt minus 2pt,
-  boxrule=0.4pt, 
-  colframe=black!60, 
-  colback=white!95, 
-  fonttitle=\gtfamily\bfseries,
-  title=出力結果
-  }
-```  
-
-```{=latex}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{showspaces=false,showtabs=false,breaklines,commandchars=\\\{\}}
-```
-
 <!-- このRmdをテンプレートとして使う場合，この行以下を編集してください -->
 
 <!--
@@ -622,10 +554,23 @@ end
 [科学論文の基本構成](https://jrecin.jst.go.jp/seek/html/e-learning/900/lesson/lesson1-4.html)に従って，
 子ファイルを配置
 
-子ファイルの数・種類・名称は，適宜変更する
+子ファイルの数・種類・名称・順番は，適宜変更する
 -->
 
+<!--
 
+ページ番号を表示させるには，
+下記の
+
+```{=latex}
+\thispagestyle{empty}
+\pagestyle{empty}
+```
+
+をコメントアウトする
+
+
+-->
 
 ```{=latex}
 \thispagestyle{empty}
@@ -655,4 +600,9 @@ end
 <!-- 結論 -->
 
 ```{r conclusion, child='drafts/05-conclusion.Rmd', include=TRUE, eval=TRUE}
+```
+
+<!-- 引用のテスト -->
+
+```{r bibliography-test, child='drafts/06-1-bibliography-test.Rmd', include=TRUE, eval=TRUE}
 ```
