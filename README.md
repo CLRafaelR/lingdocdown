@@ -53,40 +53,53 @@ beamer（スライド・ポスターを出力する LaTeX パッケージ）・r
 
 https://github.com/CLRafaelR/lingdocdown/discussions/10
 
-# このテンプレートをそのまま使うには
+# このテンプレートを使うには
 
 1. [ここ](https://github.com/CLRafaelR/lingdocdown/archive/main.zip)から，このレポジトリを丸々Zipしたファイルをダウンロード
-2. お手元の環境で展開
-3. LICENSE・README・`.gitignore`を除き，少なくとも，下記のフォルダ構成になっていることを確認
+2. お手許の環境で展開
+3. LICENSE・READMEを除き，少なくとも，下記のフォルダ構成になっていることを確認
 
 ```
 lingdocdown/
-　├ main.Rmd（親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
-　├ main.tex（親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
-　├ main.pdf（親ファイルから得られるPDF）
-　├ .latexmkrc（背後で動作するLaTeXプログラムを制御）
-　├ drafts/（子ファイルを格納・子ファイルの名称・種類・数・内容は適宜変更する）
-　│　├ 01-introduction.Rmd（RMarkdown子ファイル・序論を書くことを想定）
-　│　├ 02-materials-methods.Rmd（RMarkdown子ファイル・言語資料や方法を書くことを想定）
-　│　├ 03-results-analyses.Rmd（RMarkdown子ファイル・分析と結果を書くことを想定）
-　│　├ 04-discussion.Rmd（RMarkdown子ファイル・考察を書くことを想定）
-　│　├ 05-conclusion.Rmd（RMarkdown子ファイル・結論を書くことを想定）
-　│　└ 06-1-bibliography-test.Rmd（RMarkdown子ファイル・citation/bibliography以下のbibファイルの参照テスト用）
+　├ main.Rmd    （親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
+　├ main.tex    （親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
+　├ main.pdf    （親ファイルから得られるPDF）
+　├ .latexmkrc  （背後で動作するLaTeXプログラムを制御）
+　├ drafts/     （子ファイルを格納・子ファイルの名称・種類・数・内容は適宜変更する）
+　│　├ 01-introduction.Rmd        （RMarkdown子ファイル・序論を書くことを想定）
+　│　├ 02-materials-methods.Rmd   （RMarkdown子ファイル・言語資料や方法を書くことを想定）
+　│　├ 03-results-analyses.Rmd    （RMarkdown子ファイル・分析と結果を書くことを想定）
+　│　├ 04-discussion.Rmd          （RMarkdown子ファイル・考察を書くことを想定）
+　│　├ 05-conclusion.Rmd          （RMarkdown子ファイル・結論を書くことを想定）
+　│　└ 06-1-bibliography-test.Rmd （RMarkdown子ファイル・citation/bibliography以下のbibファイルの参照テスト用）
 　├ configuration/
 　│　├ pandoc-ling/
-　│　│　├ pandoc-ling.lua
+　│　│　├ pandoc-ling.lua  （別途要ダウンロード・下記参照）
 　│　│　└ ...
 　│　├ LaTeX
 　│　│　├ fig-tab-box.tex
 　│　│　├ linguistic-sets.tex
 　│　│　└ ...
 　│　└ ...
-　├ data/（**このレポジトリには入っていない！** 適宜追加すること）
+　├ citation/
+　│　├ bibliography/
+　│　│　├ cjk-comma-sep.bib （和文文献の書誌情報，著者の姓名がコンマで分かち書きされている）
+　│　│　├ cjk.bib           （和文文献の書誌情報）
+　│　│　├ non-cjk.bib       （欧文文献の書誌情報例）
+　│　│　└ ...               （適宜追加）
+　│　└ styles
+　│　　　├ jcon.bst  （**このレポジトリには入っていない！** 別途要ダウンロード・下記参照）
+　│　　　├ lsj.bst   （**このレポジトリには入っていない！現在開発中**）
+　│　　　└ ...       （適宜追加）
+　├ manuals/
+　│　├ guide-installation-R-tinytex.pdf  （R・TinyTeXのインストールガイド）
+　│　└ guide-rmarkdown.pdf               （RMarkdownの紹介）
+　├ data/  （**このレポジトリには入っていない！** 適宜追加すること）
 　│　├ csv/
 　│　├ mp4/
 　│　├ ...
 　│　└ ext/
-　└ figures/（**このレポジトリには入っていない！** 適宜追加すること）
+　└ figures/  （**このレポジトリには入っていない！** 適宜追加すること）
 　　　├ pdf/
 　　　│　├ figure1.pdf
 　　　│　├ figure2.pdf
@@ -97,8 +110,18 @@ lingdocdown/
 　　　　　├ figure2.png
 　　　　　├ ...
 　　　　　└ figureN.png
- ```
+```
 
+4. 次のファイルをダウンロードし，各々下位ディレクトリ（フォルダ）にダウンロード
+    1. `pandoc-ling.lua`
+        - [ここ](https://github.com/cysouw/pandoc-ling)からダウンロード
+        - `configuration/pandoc-ling`以下に格納
+    2. `jecon.bst`
+        - [ここ](https://github.com/ShiroTakeda/jecon-bst)からダウンロード
+        - `citation/styles`以下に格納
+5. [guide-installation-R-tinytex.pdf](https://github.com/CLRafaelR/lingdocdown/blob/main/manuals/guide-rmarkdown.pdf)に従って，R・RStudio・TinyTeX（・Windowsユーザはrtools40）をインストール
+6. `drafts`フォルダ以下の子ファイル（拡張子`.Rmd`）を適宜編集
+7. `main.Rmd`をknit
 
 <!--
 # 本ドキュメントが推奨するディレクトリ（フォルダ）構成
