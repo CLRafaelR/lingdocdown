@@ -11,7 +11,7 @@ author: "小川雅貴（Ogawa, Masataka）"
 プログラミングによる言語学向けの文書の生成を支援する情報集約型説明書
 および（日本の）言語学関連学会の学会誌・予稿を作成するためのテンプレート
 
-# 内容
+# 概要および開発趣旨
 
 本レポジトリでは，**統計プログラミング言語‌R‌から言語学の論文・レポートを生成する方法**を，Rのインストールの段階も含めて紹介する。
 
@@ -32,6 +32,9 @@ author: "小川雅貴（Ogawa, Masataka）"
 RMarkdown からdocx/pptx ファイルを出力したり，
 beamer（スライド・ポスターを出力する LaTeX パッケージ）・revealjs（HTMLベースのスライド）を出力する方法は別途まとめたい。
 
+また，日本言語学会の機関誌[『言語研究』の執筆要項](http://www.ls-japan.org/modules/documents/LSJpapers/j-gkstyle2020.pdf)に従い，
+参考文献を生成するプログラムも合わせて開発途上にある。
+
 # バージョン
 
 試行版 `Ain't no mountain high enough`
@@ -40,13 +43,85 @@ beamer（スライド・ポスターを出力する LaTeX パッケージ）・r
 
 1. [pandoc-ling](https://github.com/cysouw/pandoc-ling)を使用した，markdown形式でグロスを作成すること
 2. RMarkdownからLaTeXを経由してPDF（論文・予稿）を出力すること
-    - 現在は，日本言語学会の予稿に対応
+    - 現在は，日本言語学会の予稿に部分的に対応（版面・ページ番号消去）
+      - 非公式・非公認
+      - あくまで部分的に対応
 
 ## 将来的に出来るようにすること
 
 [こちら](https://github.com/CLRafaelR/lingdocdown/discussions/10)のURLにてアナウンスする
 
 https://github.com/CLRafaelR/lingdocdown/discussions/10
+
+# このテンプレートを使うには
+
+1. [ここ](https://github.com/CLRafaelR/lingdocdown/archive/main.zip)から，このレポジトリを丸々Zipしたファイルをダウンロード
+2. お手許の環境で展開
+3. LICENSE・READMEを除き，少なくとも，下記のフォルダ構成になっていることを確認
+
+```
+lingdocdown/
+　├ main.Rmd    （親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
+　├ main.tex    （親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
+　├ main.pdf    （親ファイルから得られるPDF）
+　├ .latexmkrc  （背後で動作するLaTeXプログラムを制御）
+　├ drafts/     （子ファイルを格納・子ファイルの名称・種類・数・内容は適宜変更する）
+　│　├ 01-introduction.Rmd        （RMarkdown子ファイル・序論を書くことを想定）
+　│　├ 02-materials-methods.Rmd   （RMarkdown子ファイル・言語資料や方法を書くことを想定）
+　│　├ 03-results-analyses.Rmd    （RMarkdown子ファイル・分析と結果を書くことを想定）
+　│　├ 04-discussion.Rmd          （RMarkdown子ファイル・考察を書くことを想定）
+　│　├ 05-conclusion.Rmd          （RMarkdown子ファイル・結論を書くことを想定）
+　│　└ 06-1-bibliography-test.Rmd （RMarkdown子ファイル・citation/bibliography以下のbibファイルの参照テスト用）
+　├ configuration/
+　│　├ pandoc-ling/
+　│　│　├ pandoc-ling.lua  （別途要ダウンロード・下記参照）
+　│　│　└ ...
+　│　├ LaTeX
+　│　│　├ fig-tab-box.tex
+　│　│　├ linguistic-sets.tex
+　│　│　└ ...
+　│　└ ...
+　├ citation/
+　│　├ bibliography/
+　│　│　├ cjk-comma-sep.bib （和文文献の書誌情報，著者の姓名がコンマで分かち書きされている）
+　│　│　├ cjk.bib           （和文文献の書誌情報）
+　│　│　├ non-cjk.bib       （欧文文献の書誌情報例）
+　│　│　└ ...               （適宜追加）
+　│　└ styles
+　│　　　├ jcon.bst  （**このレポジトリには入っていない！** 別途要ダウンロード・下記参照）
+　│　　　├ lsj.bst   （**このレポジトリには入っていない！現在開発中**）
+　│　　　└ ...       （適宜追加）
+　├ manuals/
+　│　├ guide-installation-R-tinytex.pdf  （R・TinyTeXのインストールガイド）
+　│　└ guide-rmarkdown.pdf               （RMarkdownの紹介）
+　├ data/  （**このレポジトリには入っていない！** 適宜追加すること）
+　│　├ csv/
+　│　├ mp4/
+　│　├ ...
+　│　└ ext/
+　└ figures/  （**このレポジトリには入っていない！** 適宜追加すること）
+　　　├ pdf/
+　　　│　├ figure1.pdf
+　　　│　├ figure2.pdf
+　　　│　├ ...
+　　　│　└ figureN.pdf
+　　　└ png/
+　　　　　├ figure1.png
+　　　　　├ figure2.png
+　　　　　├ ...
+　　　　　└ figureN.png
+```
+
+4. 次のファイルをダウンロードし，各々下位ディレクトリ（フォルダ）にダウンロード
+    1. `pandoc-ling.lua`
+        - [ここ](https://github.com/cysouw/pandoc-ling)からダウンロード
+        - `configuration/pandoc-ling`以下に格納
+    2. `jecon.bst`
+        - [ここ](https://github.com/ShiroTakeda/jecon-bst)からダウンロード
+        - `citation/styles`以下に格納
+5. [guide-installation-R-tinytex.pdf](https://github.com/CLRafaelR/lingdocdown/blob/main/manuals/guide-rmarkdown.pdf)に従って，R・RStudio・TinyTeX（・Windowsユーザはrtools40）をインストール
+6. `drafts`フォルダ以下の子ファイル（拡張子`.Rmd`）を適宜編集
+7. `main.Rmd`をknit
 
 <!--
 # 本ドキュメントが推奨するディレクトリ（フォルダ）構成
