@@ -11,7 +11,7 @@ author: "小川雅貴（Ogawa, Masataka）"
 プログラミングによる言語学向けの文書の生成を支援する情報集約型説明書
 および（日本の）言語学関連学会の学会誌・予稿を作成するためのテンプレート
 
-# 内容
+# 概要および開発趣旨
 
 本レポジトリでは，**統計プログラミング言語‌R‌から言語学の論文・レポートを生成する方法**を，Rのインストールの段階も含めて紹介する。
 
@@ -32,6 +32,9 @@ author: "小川雅貴（Ogawa, Masataka）"
 RMarkdown からdocx/pptx ファイルを出力したり，
 beamer（スライド・ポスターを出力する LaTeX パッケージ）・revealjs（HTMLベースのスライド）を出力する方法は別途まとめたい。
 
+また，日本言語学会の機関誌[『言語研究』の執筆要項](http://www.ls-japan.org/modules/documents/LSJpapers/j-gkstyle2020.pdf)に従い，
+参考文献を生成するプログラムも合わせて開発途上にある。
+
 # バージョン
 
 試行版 `Ain't no mountain high enough`
@@ -40,13 +43,60 @@ beamer（スライド・ポスターを出力する LaTeX パッケージ）・r
 
 1. [pandoc-ling](https://github.com/cysouw/pandoc-ling)を使用した，markdown形式でグロスを作成すること
 2. RMarkdownからLaTeXを経由してPDF（論文・予稿）を出力すること
-    - 現在は，日本言語学会の予稿に対応
+    - 現在は，日本言語学会の予稿に部分的に対応（版面・ページ番号消去）
+      - 非公式・非公認
+      - あくまで部分的に対応
 
 ## 将来的に出来るようにすること
 
 [こちら](https://github.com/CLRafaelR/lingdocdown/discussions/10)のURLにてアナウンスする
 
 https://github.com/CLRafaelR/lingdocdown/discussions/10
+
+# このテンプレートをそのまま使うには
+
+1. [ここ](https://github.com/CLRafaelR/lingdocdown/archive/main.zip)から，このレポジトリを丸々Zipしたファイルをダウンロード
+2. お手元の環境で展開
+3. LICENSE・README・`.gitignore`を除き，少なくとも，下記のフォルダ構成になっていることを確認
+
+```
+lingdocdown/
+　├ main.Rmd（親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
+　├ main.tex（親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
+　├ main.pdf（親ファイルから得られるPDF）
+　├ template4pptx.Rmd
+　├ childs/
+　│　├ child1.Rmd
+　│　├ child2.Rmd
+　│　├ ...
+　│　└ childN.Rmd
+　├ data/
+　│　├ csv/
+　│　├ mp4/
+　│　├ ...
+　│　└ ext/
+　├ configuration/
+　│　├ pandoc-ling/
+　│　│　├ pandoc-ling.lua
+　│　│　└ ...
+　│　├ LaTeX
+　│　│　├ fig-tab-box.tex
+　│　│　├ linguistic-sets.tex
+　│　│　└ ...
+　│　└ ...
+　└ figures/
+　　　├ pdf/
+　　　│　├ figure1.pdf
+　　　│　├ figure2.pdf
+　　　│　├ ...
+　　　│　└ figureN.pdf
+　　　└ png/
+　　　　　├ figure1.png
+　　　　　├ figure2.png
+　　　　　├ ...
+　　　　　└ figureN.png
+ ```
+
 
 <!--
 # 本ドキュメントが推奨するディレクトリ（フォルダ）構成
