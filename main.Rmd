@@ -30,11 +30,12 @@ output:
         - configuration/latex/character-config.tex
         - configuration/latex/linguistic-sets.tex
         - configuration/latex/link-highlight.tex
-        #- configuration/latex/biblatex-japanese-config.tex
+        # biblatexを使う場合は以下をコメントアウト
+        # - configuration/latex/biblatex-japanese-config.tex
     pandoc_args:
       - --lua-filter=configuration/pandoc-ling/pandoc-ling.lua
-    citation_package: natbib
-    #citation_package: biblatex
+    #citation_package: natbib
+    citation_package: biblatex
 
 ###------------------------------------------
 ###
@@ -44,13 +45,17 @@ output:
 
 # 文献情報が記されたファイルの指定
 bibliography: 
-  - citation/bibliography/cjk-comma-sep.bib
+  # - citation/bibliography/cjk.bib #biblatexを使うなら
+  - citation/bibliography/cjk-comma-sep.bib #natbibを使うなら
   - citation/bibliography/non-cjk.bib
 
 # natbibのオプション
-# biblatexoptions:
-  
+# biblatexoptions: 
+# - round
+
 # biblatexのオプション
+# biblatex-japaneseを使う場合はコメントアウトする
+#
 # biblatexoptions:
 #   - sortcites = true
 #   - sorting = nyt
@@ -60,7 +65,7 @@ bibliography:
 
 # 参考文献のスタイルの設定（LaTeX経由でPDFを生成する場合）
 # biblio-style: apa6
-biblio-style: citation/styles/lsj
+#biblio-style: citation/styles/lsj
 
 # 参考文献の章・節の名前を変更する
 # bxjsarticleの初期設定では「参考文献」

@@ -313,11 +313,24 @@
 
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{showspaces=false,showtabs=false,breaklines,commandchars=\\\{\}}
 
+%---------------------------------------------------
+%
+% biblatex-japaneseを使う際の設定
+%
+%---------------------------------------------------
+
+\usepackage[sortcites = true, 
+sorting = nyt,
+backend = biber,
+style = authoryear,
+maxcitenames = 2]{biblatex-japanese}
+
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage[]{natbib}
-\bibliographystyle{citation/styles/lsj}
+\usepackage[]{biblatex}
+\addbibresource{citation/bibliography/cjk.bib}
+\addbibresource{citation/bibliography/non-cjk.bib}
 
 \title{タイトル}
 \usepackage{etoolbox}
@@ -328,7 +341,7 @@
 \makeatother
 \subtitle{サブタイトル}
 \author{姓 名}
-\date{2021/1/31 (最終更新: 2021/3/ 2)}
+\date{2021/1/31 (最終更新: 2021/3/ 3)}
 
 \begin{document}
 \maketitle
@@ -407,66 +420,66 @@
 
 \url{http://www.ls-japan.org/modules/documents/LSJpapers/j-gkstyle2020.pdf}
 
-\citet{佐久間1941}
+\textcite{佐久間1941}
 
-\citet{服部1976}
+\textcite{服部1976}
 
-\citet{金田一1955}
+\textcite{金田一1955}
 
-\citet{上野1997}
+\textcite{上野1997}
 
-\citet{柴谷1978}
+\textcite{柴谷1978}
 
-\citet{林_南1974}
+\textcite{林_南1974}
 
-\citet{梶1992}
+\textcite{梶1992}
 
-\citet{橋本1966}
+\textcite{橋本1966}
 
-\citet{Postal1970},
+\textcite{Postal1970},
 
-\citet{Kay_McDaniel1978}
+\textcite{Kay_McDaniel1978}
 
-\citet{Kiparsky1968}
+\textcite{Kiparsky1968}
 
-\citet{Haegeman1994}
+\textcite{Haegeman1994}
 
-\citet{Jakobson_etal1963}
+\textcite{Jakobson_etal1963}
 
-\citet{Sag1976}
+\textcite{Sag1976}
 
-\citet{Liberman2007}
+\textcite{Liberman2007}
 
-\citep{佐久間1941}
+\autocite{佐久間1941}
 
-\citep{服部1976}
+\autocite{服部1976}
 
-\citep{金田一1955}
+\autocite{金田一1955}
 
-\citep{上野1997}
+\autocite{上野1997}
 
-\citep{柴谷1978}
+\autocite{柴谷1978}
 
-\citep{林_南1974}
+\autocite{林_南1974}
 
-\citep{梶1992}
+\autocite{梶1992}
 
-\citep{橋本1966}
+\autocite{橋本1966}
 
-\citep{Postal1970}
+\autocite{Postal1970}
 
-\citep{Kay_McDaniel1978}
+\autocite{Kay_McDaniel1978}
 
-\citep{Kiparsky1968}
+\autocite{Kiparsky1968}
 
-\citep{Haegeman1994}
+\autocite{Haegeman1994}
 
-\citep{Jakobson_etal1963}
+\autocite{Jakobson_etal1963}
 
-\citep{Sag1976}
+\autocite{Sag1976}
 
-\citep{Liberman2007}
+\autocite{Liberman2007}
 
-  \bibliography{citation/bibliography/cjk-comma-sep.bib,citation/bibliography/non-cjk.bib}
+\printbibliography
 
 \end{document}
