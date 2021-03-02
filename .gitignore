@@ -1,0 +1,10 @@
+*.png
+*.PNG
+*.jpeg
+*.jpg
+*.zip
+.Rproj.user/*
+.RData
+.Rhistory
+.Rproj.user
+./templates

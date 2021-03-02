@@ -22,4 +22,7 @@ if ($^O eq 'MSWin32'){
   $pdf_previewer = "start %S";
 }
 $bibtex_use = 2;
-$clean_ext = "bbl fls";
+
+# 削除する中間生成物ファイルの指定は，以下のサイトより
+# https://tex.stackexchange.com/a/83386/169454
+$clean_ext = 'synctex.gz synctex.gz(busy) run.xml tex.bak bbl bcf fdb_latexmk run tdo %R-blx.bib';
