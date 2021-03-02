@@ -64,17 +64,14 @@ lingdocdown/
 　├ main.Rmd（親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
 　├ main.tex（親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
 　├ main.pdf（親ファイルから得られるPDF）
-　├ template4pptx.Rmd
-　├ childs/
-　│　├ child1.Rmd
-　│　├ child2.Rmd
-　│　├ ...
-　│　└ childN.Rmd
-　├ data/
-　│　├ csv/
-　│　├ mp4/
-　│　├ ...
-　│　└ ext/
+　├ .latexmkrc（背後で動作するLaTeXプログラムを制御）
+　├ drafts/（子ファイルを格納・子ファイルの名称・種類・数・内容は適宜変更する）
+　│　├ 01-introduction.Rmd（RMarkdown子ファイル・序論を書くことを想定）
+　│　├ 02-materials-methods.Rmd（RMarkdown子ファイル・言語資料や方法を書くことを想定）
+　│　├ 03-results-analyses.Rmd（RMarkdown子ファイル・分析と結果を書くことを想定）
+　│　├ 04-discussion.Rmd（RMarkdown子ファイル・考察を書くことを想定）
+　│　├ 05-conclusion.Rmd（RMarkdown子ファイル・結論を書くことを想定）
+　│　└ 06-1-bibliography-test.Rmd（RMarkdown子ファイル・citation/bibliography以下のbibファイルの参照テスト用）
 　├ configuration/
 　│　├ pandoc-ling/
 　│　│　├ pandoc-ling.lua
@@ -84,7 +81,12 @@ lingdocdown/
 　│　│　├ linguistic-sets.tex
 　│　│　└ ...
 　│　└ ...
-　└ figures/
+　├ data/（**このレポジトリには入っていない！** 適宜追加すること）
+　│　├ csv/
+　│　├ mp4/
+　│　├ ...
+　│　└ ext/
+　└ figures/（**このレポジトリには入っていない！** 適宜追加すること）
 　　　├ pdf/
 　　　│　├ figure1.pdf
 　　　│　├ figure2.pdf
