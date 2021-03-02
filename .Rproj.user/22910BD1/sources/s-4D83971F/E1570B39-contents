@@ -1,0 +1,23 @@
+
+\newbibmacro*{finalnamedelim:{japanese}}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\multinamedelim
+}
+\renewcommand*{\finalnamedelim}{%
+  \iflistundef{language}
+  {\ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\bibstring{and}\space}
+  {\usebibmacro*{finalnamedelim:\strlist{language}}}
+}
+\newbibmacro*{name:given-family:{japanese}}[4]{%
+  \usebibmacro{name:delim}{#1#2}\usebibmacro{name:hook}{#1#2}#1\bibnamedelimc#2}
+\DeclareNameFormat{given-family}{%
+  \iflistundef{language}{%
+    \ifgiveninits
+      {\usebibmacro{name:given-family}{\namepartfamily}{\namepartgiveni}{\namepartprefix}{\namepartsuffix}}
+      {\usebibmacro{name:given-family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}}
+  }
+  {\usebibmacro*{name:given-family:\strlist{language}}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}}
+  \usebibmacro{name:andothers}
+}
+    
