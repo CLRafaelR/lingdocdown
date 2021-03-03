@@ -42,6 +42,7 @@ beamer（スライド・ポスターを出力する LaTeX パッケージ）・r
 ## いま出来ること
 
 1. [pandoc-ling](https://github.com/cysouw/pandoc-ling)を使用した，markdown形式でグロスを作成すること
+    - たぶん本邦初の徹底解説かもしれない？？
 2. RMarkdownからLaTeXを経由してPDF（論文・予稿）を出力すること
     - 現在は，日本言語学会の予稿に部分的に対応（版面・ページ番号消去）
       - 非公式・非公認
