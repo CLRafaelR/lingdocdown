@@ -65,7 +65,7 @@ bibliography:
 
 # 参考文献のスタイルの設定（LaTeX経由でPDFを生成する場合）
 # biblio-style: apa6
-#biblio-style: citation/styles/lsj
+# biblio-style: citation/styles/lsj #natbibとのみ動作
 
 # 参考文献の章・節の名前を変更する
 # bxjsarticleの初期設定では「参考文献」
