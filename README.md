@@ -13,7 +13,7 @@ author: "小川雅貴（Ogawa, Masataka）"
 
 # 概要および開発趣旨
 
-本レポジトリでは，**統計プログラミング言語‌R‌から言語学の論文・レポートを生成する方法**を，Rのインストールの段階も含めて紹介する。
+本レポジトリでは，**統計プログラミング言語Rから言語学の論文・レポートを生成する方法**を，Rのインストールの段階も含めて紹介する。
 
 これまで言語学の論文・レポートは，Microsoft Word や LaTeX から作成されてきた。
 しかし，Microsoft Word では，参考文献および図表・例文番号の自動付与と整形に加え，
@@ -21,7 +21,7 @@ author: "小川雅貴（Ogawa, Masataka）"
 また，LaTeX では，参考文献等の自動処理や言語学特有の記述は可能だったが，
 コマンドと本文（地の文）が混然一体となり見難く，かつプログラミングの慣熟までに高い敷居があった。
 
-そこで本レポジトリでは，より平易な文書生成プログラミングである‌RMarkdown‌ を紹介する。
+そこで本レポジトリでは，より平易な文書生成プログラミングであるRMarkdownを紹介する。
 これにより，参考文献および図表・例文番号の処理と言語学特有の記述の体系的自動化が可能になり，
 かつコマンドと地の文をより容易に識別しながら執筆できる。
 しかも，統計プログラミング結果も本文に直に・即時更新で取り込むこともできるようになる。
@@ -64,13 +64,13 @@ lingdocdown/
 　├ main.Rmd    （親ファイル・これをknitすることでLaTeXを経由したPDFを得る）
 　├ main.tex    （親ファイルからPDFを得るときに中間生成物として作られるTeXファイル）
 　├ main.pdf    （親ファイルから得られるPDF）
-　├ .latexmkrc  （背後で動作するLaTeXプログラムを制御）
+　├ .latexmkrc  （背後で動作するLaTeXプログラムを制御するファイル）
 　├ drafts/     （子ファイルを格納・子ファイルの名称・種類・数・内容は適宜変更する）
-　│　├ 01-introduction.Rmd        （RMarkdown子ファイル・序論を書くことを想定）
-　│　├ 02-materials-methods.Rmd   （RMarkdown子ファイル・言語資料や方法を書くことを想定）
-　│　├ 03-results-analyses.Rmd    （RMarkdown子ファイル・分析と結果を書くことを想定）
-　│　├ 04-discussion.Rmd          （RMarkdown子ファイル・考察を書くことを想定）
-　│　├ 05-conclusion.Rmd          （RMarkdown子ファイル・結論を書くことを想定）
+　│　├ 01-introduction.Rmd        （RMarkdown子ファイル・序論執筆用）
+　│　├ 02-materials-methods.Rmd   （RMarkdown子ファイル・言語資料・方法執筆用）
+　│　├ 03-results-analyses.Rmd    （RMarkdown子ファイル・分析・結果執筆用）
+　│　├ 04-discussion.Rmd          （RMarkdown子ファイル・考察執筆用）
+　│　├ 05-conclusion.Rmd          （RMarkdown子ファイル・結論執筆用）
 　│　└ 06-1-bibliography-test.Rmd （RMarkdown子ファイル・citation/bibliography以下のbibファイルの参照テスト用）
 　├ configuration/
 　│　├ pandoc-ling/
@@ -82,24 +82,24 @@ lingdocdown/
 　│　│　└ ...
 　│　└ ...
 　├ citation/
-　│　├ bibliography/
+　│　├ bibliography/        （本フォルダ及びそのファイルは適宜変更する）
 　│　│　├ cjk-comma-sep.bib （和文文献の書誌情報，著者の姓名がコンマで分かち書きされている）
-　│　│　├ cjk.bib           （和文文献の書誌情報）
+　│　│　├ cjk.bib           （和文文献の書誌情報例）
 　│　│　├ non-cjk.bib       （欧文文献の書誌情報例）
-　│　│　└ ...               （適宜追加）
+　│　│　└ ...               （必要に応じ，適宜追加すること）
 　│　└ styles
 　│　　　├ jcon.bst  （**このレポジトリには入っていない！** 別途要ダウンロード・下記参照）
 　│　　　├ lsj.bst   （**このレポジトリには入っていない！現在開発中**）
-　│　　　└ ...       （適宜追加）
+　│　　　└ ...       （必要に応じ，適宜追加すること）
 　├ manuals/
 　│　├ guide-installation-R-tinytex.pdf  （R・TinyTeXのインストールガイド）
 　│　└ guide-rmarkdown.pdf               （RMarkdownの紹介）
-　├ data/  （**このレポジトリには入っていない！** 適宜追加すること）
+　├ data/  （**このレポジトリには入っていない！** 必要に応じ，適宜追加すること）
 　│　├ csv/
 　│　├ mp4/
 　│　├ ...
 　│　└ ext/
-　└ figures/  （**このレポジトリには入っていない！** 適宜追加すること）
+　└ figures/  （**このレポジトリには入っていない！** 必要に応じ，適宜追加すること）
 　　　├ pdf/
 　　　│　├ figure1.pdf
 　　　│　├ figure2.pdf
