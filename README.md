@@ -17,20 +17,28 @@ author: "小川雅貴（Ogawa, Masataka）"
 
 これまで言語学の論文・レポートは，Microsoft Word や LaTeX から作成されてきた。
 しかし，Microsoft Word では，参考文献および図表・例文番号の自動付与と整形に加え，
-グロス付与・句構造木の描画のような言語学特有の記述も難しかった。
-また，LaTeX では，参考文献等の自動処理や言語学特有の記述は可能だったが，
+グロス付与・句構造木の描画のような言語学特有の記述にも難しい面があった。
+また，LaTeX は，こうした処理を得意としており，高度な組版も出来るが，
 コマンドと本文（地の文）が混然一体となり見難く，かつプログラミングの慣熟までに高い敷居があった。
 
 そこで本レポジトリでは，より平易な文書生成プログラミングであるRMarkdownを紹介する。
 これにより，参考文献および図表・例文番号の処理と言語学特有の記述の体系的自動化が可能になり，
 かつコマンドと地の文をより容易に識別しながら執筆できる。
-しかも，統計プログラミング結果も本文に直に・即時更新で取り込むこともできるようになる。
-本レポジトリは，そうした技術を，言語学分野への応用を念頭に集約したものである。
+しかも，統計プログラミング言語ならではの数値処理（RやPython等の実行）も利用できるため，
+数値処理の結果も本文に直に・即時更新で取り込める。
+本レポジトリは，
+言語学分野への応用を念頭に，
+プログラミングを使った文書作成技術を集約している。
 
-なお，現在の資料は，現在は RMarkdown から LaTeX を経由して PDF を出力する（但し LaTeX は極力使わない）ことに特化している。
-そのため近い将来，
+現在の資料は，現在は RMarkdown から PDF を出力することに特化している。
+PDF生成時に背後でLaTeX が動作するが，ユーザがLaTeX コマンドを使って組版する場面はほぼない。
+但しLaTeX コマンドを好きなだけ組み入れることも自由である。
+なお，LaTeX コマンドで組版する場面が減ったのであり，句構造木の描画には
+TikZといったLaTeX パッケージのコマンドを使う（句構造木描画は，試行版ではカバーしていないため，将来的に実例を用意する）。
+
+近い将来，
 RMarkdown からdocx/pptx ファイルを出力したり，
-beamer（スライド・ポスターを出力する LaTeX パッケージ）・revealjs（HTMLベースのスライド）を出力する方法は別途まとめたい。
+beamer（スライド・ポスターを出力する LaTeX パッケージ）・revealjs（HTMLベースのスライド）を出力する方法を別途まとめたい。
 
 また，日本言語学会の機関誌[『言語研究』の執筆要項](http://www.ls-japan.org/modules/documents/LSJpapers/j-gkstyle2020.pdf)に従い，
 参考文献を生成するプログラムも合わせて開発途上にある。
@@ -58,7 +66,24 @@ https://github.com/CLRafaelR/lingdocdown/discussions/10
 
 1. [ここ](https://github.com/CLRafaelR/lingdocdown/archive/main.zip)から，このレポジトリを丸々Zipしたファイルをダウンロード
 2. お手許の環境で展開
-3. LICENSE・READMEを除き，少なくとも，下記のフォルダ構成になっていることを確認
+    - フォルダ構成には適宜任意の変更を加えてよい
+    - 但し，以下のファイル・フォルダのみ，動作に必要であるので，修正・削除の際は注意されたい
+        1. `main.Rmd`
+        2. `.latexmkrc`
+        3. `drafts/`以下のファイル群
+        4. `configuration/`以下のファイル群
+        5. `citation/`以下のファイル群
+    - 実践例は，下記のフォルダ構成の通り
+3. 次のファイルをダウンロードし，各々下位ディレクトリ（フォルダ）にダウンロード
+    1. `pandoc-ling.lua`
+        - [ここ](https://github.com/cysouw/pandoc-ling)からダウンロード
+        - `configuration/pandoc-ling`以下に格納
+    2. `jecon.bst`
+        - [ここ](https://github.com/ShiroTakeda/jecon-bst)からダウンロード
+        - `citation/styles`以下に格納
+4. [guide-installation-R-tinytex.pdf](https://github.com/CLRafaelR/lingdocdown/blob/main/manuals/guide-rmarkdown.pdf)に従って，R・RStudio・TinyTeX（・Windowsユーザはrtools40）をインストール
+5. `drafts`フォルダ以下の子ファイル（拡張子`.Rmd`）を適宜編集
+6. `main.Rmd`をknitし，文書生成
 
 ```
 lingdocdown/
@@ -113,16 +138,6 @@ lingdocdown/
 　　　　　└ figureN.png
 ```
 
-4. 次のファイルをダウンロードし，各々下位ディレクトリ（フォルダ）にダウンロード
-    1. `pandoc-ling.lua`
-        - [ここ](https://github.com/cysouw/pandoc-ling)からダウンロード
-        - `configuration/pandoc-ling`以下に格納
-    2. `jecon.bst`
-        - [ここ](https://github.com/ShiroTakeda/jecon-bst)からダウンロード
-        - `citation/styles`以下に格納
-5. [guide-installation-R-tinytex.pdf](https://github.com/CLRafaelR/lingdocdown/blob/main/manuals/guide-rmarkdown.pdf)に従って，R・RStudio・TinyTeX（・Windowsユーザはrtools40）をインストール
-6. `drafts`フォルダ以下の子ファイル（拡張子`.Rmd`）を適宜編集
-7. `main.Rmd`をknit
 
 <!--
 # 本ドキュメントが推奨するディレクトリ（フォルダ）構成
