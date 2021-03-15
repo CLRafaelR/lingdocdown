@@ -31,9 +31,18 @@ output:
         - configuration/latex/linguistic-sets.tex
         - configuration/latex/link-highlight.tex
         # biblatexを使う場合は以下をコメントアウト
-        # - configuration/latex/biblatex-japanese-config.tex
+        - configuration/latex/biblatex-japanese-config.tex
     pandoc_args:
       - --lua-filter=configuration/pandoc-ling/pandoc-ling.lua
+      - --wrap=preserve
+    # HTMLやdocxを出力する際，(R)Markdownでの改行が出力ファイルで
+    # 「余計な空白」にならないようにするためのコマンド
+    # pandoc_args: --wrap=preserveは，LaTeX経由でPDFを生成する際に
+    # 同様の働きをする
+    # 詳しくは，下記URL先を参照
+    # https://qiita.com/zr_tex8r/items/5a62804ca493b77e793c
+    md_extensions: +east_asian_line_breaks
+    #
     #citation_package: natbib
     citation_package: biblatex
 
@@ -45,8 +54,8 @@ output:
 
 # 文献情報が記されたファイルの指定
 bibliography: 
-  # - citation/bibliography/cjk.bib #biblatexを使うなら
-  - citation/bibliography/cjk-comma-sep.bib #natbibを使うなら
+  - citation/bibliography/cjk.bib #biblatexを使うなら
+  #- citation/bibliography/cjk-comma-sep.bib #natbibを使うなら
   - citation/bibliography/non-cjk.bib
 
 # natbibのオプション
