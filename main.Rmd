@@ -111,7 +111,7 @@ classoption:
    ## 以降は任意 
    ##--------------------
    # XeLaTeXをLaTeXエンジンにしている場合のフォント設定
-   # 詳しくは，下記「zxjafontパッケージ」の第2.1節内にある「■多ウェイト用プリセッ 」を参照
+   # 詳しくは，下記「zxjafontパッケージ」の第2.1節内にある「■多ウェイト用プリセット」を参照
    # http://mirrors.ctan.org/language/japanese/zxjafont/zxjafont.pdf#page=2
   - jafont = haranoaji       # bxjsarticleのデフォルトのフォント
    #- jafont = yu-win10      # Windows 10ユーザが游書体を使う場合
